@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./travlr/routes/index');
+var usersRouter = require('./travlr/routes/users');
 
 var app = express();
 
@@ -39,3 +39,9 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+const indexRouter = require('./app_server/routes/index');
+const travelRouter = require('./app_server/routes/travel');
+app.use('/', indexRouter);
+app.use('/travel', travelRouter);
+const hbs = require('hbs');
+hbs.registerPartials(__dirname + '/app_server/views/partials');
