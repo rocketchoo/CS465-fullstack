@@ -1,0 +1,102 @@
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var hbs = require('hbs');
+
+var indexRouter = require('./app_server/routes/index'); // ✅ Corrected Path
+var travelRouter = require('./app_server/routes/travel'); // ✅ Added Travel Route
+
+var app = express();
+
+// View Engine Setup
+app.set('views', path.join(__dirname, 'app_server/views')); // ✅ Corrected Path
+app.set('view engine', 'hbs');
+
+// Register Partials
+hbs.registerPartials(__dirname + '/app_server/views/partials'); // ✅ Register Handlebars Partials
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// Define Routes
+app.use('/', indexRouter); // ✅ Corrected Route
+app.use('/travel', travelRouter); // ✅ Added Travel Route
+
+// Error Handling
+app.use(function (req, res, next) {
+    next(createError(404));
+});
+
+app.use(function (err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 50var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var hbs = require('hbs');
+
+var indexRouter = require('./app_server/routes/index'); // ✅ Corrected Path
+var travelRouter = require('./app_server/routes/travel'); // ✅ Added Travel Route
+
+var app = express();
+
+// View Engine Setup
+app.set('views', path.join(__dirname, 'app_server/views')); // ✅ Corrected Path
+app.set('view engine', 'hbs');
+
+// Register Partials
+hbs.registerPartials(__dirname + '/app_server/views/partials'); // ✅ Register Handlebars Partials
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var hbs = require('hbs');
+
+var indexRouter = require('./app_server/routes/index'); // ✅ Corrected Path
+var travelRouter = require('./app_server/routes/travel'); // ✅ Added Travel Route
+
+var app = express();
+
+// View Engine Setup
+app.set('views', path.join(__dirname, 'app_server/views')); // ✅ Corrected Path
+app.set('view engine', 'hbs');
+
+// Register Partials
+hbs.registerPartials(__dirname + '/app_server/views/partials'); // ✅ Register Handlebars Partials
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// Define Routes
+app.use('/', indexRouter); // ✅ Corrected Route
+app.use('/travel', travelRouter); // ✅ Added Travel Route
+
+// Error Handling
+app.use(function (req, res, next) {
+    next(createError(404));
+});
+
+app.use(function (err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+module.exports = app;
+
