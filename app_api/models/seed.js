@@ -1,6 +1,6 @@
 // Bring in the DB connection and the Trip schema
 const mongoose = require('./db');
-const Trip = require('./travlr');
+const Trip = require('../travlr');
 
 // Read seed data from JSON file
 const fs = require('fs');

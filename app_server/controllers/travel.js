@@ -1,12 +1,15 @@
-const fs = require('fs');
+const fetch = require('node-fetch');
 
-const trips = JSON.parse(fs.readFileSync('./data/trips.json', 'utf8'));
+const tripsEndpoint = 'http://localhost:3000/api/trips';
 
-/* GET travel view*/
-const travel = (req, res) => {
-  res.render('travel', { title: 'Travlr Getaways', trips });
+const travel = async (req, res) => {
+    try {
+        const response = await fetch(tripsEndpoint);
+        const trips = await response.json();
+        res.render('travel', { title: 'Travlr Getaways', trips });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
 };
 
-module.exports = {
-  travel,
-};
+module.exports = { travel };
